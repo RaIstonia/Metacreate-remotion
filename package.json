@@ -1,0 +1,31 @@
+{
+  "name": "metacreate-remotion",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio",
+    "render:intro": "remotion render BrandIntro out/brand-intro.mp4",
+    "render:manifesto": "remotion render ManifestoScene out/manifesto.mp4",
+    "render:search": "remotion render SearchMatchScene out/search-match.mp4",
+    "render:findyourself": "remotion render FindYourselfScene out/act1-findyourself.mp4",
+    "render:connect": "remotion render ConnectScene out/act2-connect.mp4",
+    "render:cocreate": "remotion render CoCreateScene out/act3-cocreate.mp4",
+    "render:outro": "remotion render BrandOutro out/brand-outro.mp4",
+    "render:master": "remotion render MasterFilm out/metacreate-promo.mp4",
+    "still:intro": "remotion still BrandIntro out/intro-frame.png --frame=80",
+    "still:manifesto": "remotion still ManifestoScene out/manifesto-frame.png --frame=130",
+    "still:search": "remotion still SearchMatchScene out/search-frame.png --frame=240",
+    "still:outro": "remotion still BrandOutro out/outro-frame.png --frame=130"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.4.0"
+  }
+}
