@@ -12,7 +12,7 @@ export const MASTER_FPS = 24;
 export const INTRO_DURATION = 192;
 export const ACT1_DURATION = 456;
 export const ACT2_DURATION = 384;
-export const ACT3_DURATION = 312;
+export const ACT3_DURATION = 528;
 export const OUTRO_DURATION = 150;
 
 export const MASTER_DURATION =

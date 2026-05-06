@@ -12,6 +12,7 @@
     "render:cocreate": "remotion render CoCreateScene out/act3-cocreate.mp4",
     "render:outro": "remotion render BrandOutro out/brand-outro.mp4",
     "render:master": "remotion render MasterFilm out/metacreate-promo.mp4",
+    "render:final": "remotion render MasterFilm out/metacreate-promo-v13-final-4k.mp4 --scale=2 --jpeg-quality=100 --crf=14",
     "still:intro": "remotion still BrandIntro out/intro-frame.png --frame=80",
     "still:manifesto": "remotion still ManifestoScene out/manifesto-frame.png --frame=130",
     "still:search": "remotion still SearchMatchScene out/search-frame.png --frame=240",

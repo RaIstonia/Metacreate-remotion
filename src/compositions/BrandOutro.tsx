@@ -2,6 +2,7 @@ import React from "react";
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from "remotion";
 import { theme } from "../theme";
 import { Wordmark } from "../elements/Wordmark";
+import { MetaFire } from "../elements/MetaFire";
 
 const SEED = 99;
 const rand = (i: number) => {
@@ -15,7 +16,7 @@ const PLANETS: Planet[] = Array.from({ length: 55 }).map((_, i) => ({
   x: 220 + rand(i * 2) * 1480,
   y: 140 + rand(i * 2 + 1) * 800,
   size: rand(i * 3) * 2.6 + 1.4,
-  delay: Math.floor(rand(i * 5) * 60),
+  delay: 40 + Math.floor(rand(i * 5) * 50),
 }));
 
 const CONNECTIONS: Array<[number, number]> = [];
@@ -32,20 +33,58 @@ PLANETS.forEach((p, i) => {
   });
 });
 
+const SPARK_COUNT = 28;
+const sparkRand = (i: number) => {
+  const x = Math.sin(i * 23.71 + 11.7) * 7919.5;
+  return x - Math.floor(x);
+};
+
 export const BrandOutro: React.FC = () => {
   const frame = useCurrentFrame();
 
-  const cameraScale = interpolate(frame, [0, 84], [1.25, 1], {
+  const flameScale = interpolate(
+    frame,
+    [0, 30, 50, 72],
+    [0.0, 1.0, 1.0, 0.0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: Easing.inOut(Easing.cubic),
+    }
+  );
+  const flameOpacity = interpolate(frame, [0, 18, 52, 72], [0, 1, 1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const flameGlow = interpolate(frame, [0, 30, 50, 72], [0.4, 1.0, 1.0, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  const burstFlash = interpolate(
+    frame,
+    [40, 50, 56, 70],
+    [0, 0.55, 0.55, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+
+  const cameraScale = interpolate(frame, [10, 100], [1.25, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.out(Easing.cubic),
   });
 
-  const wordmarkOpacity = interpolate(frame, [78, 114], [0, 1], {
+  const cosmicReveal = interpolate(frame, [40, 80], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+
+  const wordmarkOpacity = interpolate(frame, [92, 124], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const taglineOpacity = interpolate(frame, [102, 138], [0, 1], {
+  const taglineOpacity = interpolate(frame, [110, 140], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -60,6 +99,7 @@ export const BrandOutro: React.FC = () => {
           inset: 0,
           transform: `scale(${cameraScale})`,
           transformOrigin: "center",
+          opacity: cosmicReveal,
         }}
       >
         <svg
@@ -117,6 +157,61 @@ export const BrandOutro: React.FC = () => {
           );
         })}
       </div>
+
+      <AbsoluteFill
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          opacity: flameOpacity,
+          pointerEvents: "none",
+        }}
+      >
+        <MetaFire scale={flameScale} glow={flameGlow} />
+      </AbsoluteFill>
+
+      <AbsoluteFill style={{ pointerEvents: "none" }}>
+        {[...Array(SPARK_COUNT)].map((_, i) => {
+          const spawnDelay = 36 + (i % 12) * 1.6;
+          const lifetime = 50;
+          const localT = frame - spawnDelay;
+          if (localT < 0 || localT > lifetime) return null;
+          const t = localT / lifetime;
+          const angle = sparkRand(i) * Math.PI * 2;
+          const distance = 80 + sparkRand(i + 100) * 380;
+          const dx = Math.cos(angle) * distance * t;
+          const dy = Math.sin(angle) * distance * t - 30 * t;
+          const size = 1.4 + sparkRand(i + 200) * 2.6;
+          const opacity =
+            Math.sin(Math.min(1, t * 1.4) * Math.PI) *
+            (1 - Math.max(0, t - 0.7) * 3);
+          return (
+            <div
+              key={`spark-${i}`}
+              style={{
+                position: "absolute",
+                left: `calc(50% + ${dx}px)`,
+                top: `calc(50% + ${dy}px)`,
+                width: size,
+                height: size,
+                borderRadius: "50%",
+                backgroundColor: theme.colors.ember,
+                boxShadow: `0 0 ${size * 6}px ${theme.colors.ember}, 0 0 ${size * 14}px ${theme.colors.emberWarm}aa`,
+                opacity: Math.max(0, opacity),
+              }}
+            />
+          );
+        })}
+      </AbsoluteFill>
+
+      <AbsoluteFill
+        style={{
+          background:
+            "radial-gradient(circle at center, rgba(255,210,150,0.85), rgba(255,107,53,0.4) 25%, transparent 60%)",
+          opacity: burstFlash,
+          mixBlendMode: "screen",
+          pointerEvents: "none",
+        }}
+      />
 
       <AbsoluteFill style={{ alignItems: "center", justifyContent: "center" }}>
         <Wordmark

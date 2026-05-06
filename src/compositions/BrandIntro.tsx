@@ -34,7 +34,7 @@ const FlameBodyPath: React.FC<{
     >
       <svg width="280" height="402" viewBox="0 0 117 168" fill="none">
         <path
-          d="M58.5 167.7C26.1913 167.7 0 141.508 0 109.2C0 92.4004 7.08131 77.2551 18.422 66.5855C28.8914 56.7352 54.6 38.9962 50.7 0C97.5 31.2 120.9 62.4 74.1 109.2C81.9 109.2 93.6 109.2 113.1 89.9309C115.204 95.965 117 102.449 117 109.2C117 141.508 90.8084 167.7 58.5 167.7Z"
+          d="M58.5 168C26 168 0 141 0 109C0 88 12 65 30 46C42 30 52 14 58.5 0C65 14 75 30 87 46C105 65 117 88 117 109C117 141 91 168 58.5 168Z"
           fill="url(#mfBrandGrad)"
         />
         {withEyes && (
@@ -73,17 +73,17 @@ export const BrandIntro: React.FC = () => {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const dotFade = interpolate(frame, [22, 34], [1, 0], {
+  const dotFade = interpolate(frame, [18, 22], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  const pillarHeight = interpolate(frame, [18, 48], [0, 36], {
+  const pillarHeight = interpolate(frame, [22, 50], [0, 36], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.out(Easing.cubic),
   });
-  const pillarOpacity = interpolate(frame, [16, 26, 56, 64], [0, 1, 1, 0], {
+  const pillarOpacity = interpolate(frame, [22, 30, 56, 64], [0, 1, 1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -141,13 +141,44 @@ export const BrandIntro: React.FC = () => {
     extrapolateRight: "clamp",
   });
 
+  const ignitionFlash = interpolate(frame, [16, 22, 36], [0, 1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  const heatHaze = interpolate(frame, [55, 90, 168, 192], [0, 1, 1, 0.3], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  const pulseRings = [
+    { start: 70, end: 130 },
+    { start: 110, end: 170 },
+    { start: 150, end: 192 },
+  ];
+
   const radialBg = `radial-gradient(circle at center, ${theme.colors.voidDeep} 0%, ${theme.colors.voidBlack} 80%)`;
 
   const FLAME_BASE_Y = 0;
 
+  const sparkSeed = (i: number) => {
+    const x = Math.sin(i * 19.71 + 7.3) * 9301.5;
+    return x - Math.floor(x);
+  };
+
   return (
     <AbsoluteFill style={{ background: radialBg }}>
       <Starfield expandProgress={starExpand} />
+
+      <AbsoluteFill
+        style={{
+          background:
+            "radial-gradient(circle at center, rgba(255,210,150,0.95), rgba(255,107,53,0.55) 22%, rgba(255,107,53,0.18) 45%, transparent 65%)",
+          opacity: ignitionFlash,
+          mixBlendMode: "screen",
+          pointerEvents: "none",
+        }}
+      />
 
       <AbsoluteFill style={{ alignItems: "center", justifyContent: "center" }}>
         <div
@@ -205,23 +236,81 @@ export const BrandIntro: React.FC = () => {
             withEyes={false}
             flicker={0.3}
           />
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              opacity: eyesPop,
-              transform: `scale(${0.9 + eyesPop * 0.1})`,
-              transformOrigin: "center 134px",
-            }}
-          >
-            <svg width="280" height="402" viewBox="0 0 117 168" fill="none">
-              <path
-                d="M69.3066 134.397C71.8035 132.516 73.7631 129.96 74.915 127C77.4364 128.957 79.5843 131.371 81.2354 134.119C79.5047 136.999 77.2292 139.515 74.5488 141.52C73.4741 138.691 71.6453 136.235 69.3066 134.397ZM37 134.119C38.651 131.371 40.7998 128.957 43.3213 127C44.4731 129.96 46.4322 132.516 48.9287 134.397C46.5904 136.235 44.7621 138.692 43.6875 141.52C41.0071 139.515 38.7307 136.999 37 134.119Z"
-                fill="#000"
-              />
-            </svg>
-          </div>
         </div>
+
+        <div
+          style={{
+            position: "absolute",
+            width: 480,
+            height: 220,
+            background:
+              "radial-gradient(ellipse at center, rgba(255,107,53,0.42), rgba(255,165,89,0.20) 40%, transparent 70%)",
+            filter: "blur(36px)",
+            opacity: heatHaze,
+            transform: `translateY(${FLAME_BASE_Y + 30}px)`,
+            pointerEvents: "none",
+          }}
+        />
+
+        {pulseRings.map((p, i) => {
+          const pulseProgress = interpolate(frame, [p.start, p.end], [0, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+            easing: Easing.out(Easing.cubic),
+          });
+          if (pulseProgress <= 0 || pulseProgress >= 1) return null;
+          const ringScale = 0.35 + pulseProgress * 1.8;
+          const ringOpacity = (1 - pulseProgress) * 0.5;
+          return (
+            <div
+              key={`pulse-${i}`}
+              style={{
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                width: 240,
+                height: 240,
+                borderRadius: "50%",
+                border: `1.5px solid ${theme.colors.ember}`,
+                transform: `translate(-50%, -50%) translateY(-100px) scale(${ringScale})`,
+                opacity: ringOpacity,
+                boxShadow: `0 0 22px ${theme.colors.ember}88`,
+                pointerEvents: "none",
+              }}
+            />
+          );
+        })}
+
+        {[...Array(18)].map((_, i) => {
+          const spawnDelay = 50 + i * 5;
+          const lifetime = 95;
+          const localT = frame - spawnDelay;
+          if (localT < 0 || localT > lifetime) return null;
+          const t = localT / lifetime;
+          const x0 = (sparkSeed(i) - 0.5) * 70;
+          const drift = (sparkSeed(i + 100) - 0.5) * 50;
+          const y = -90 - t * 260;
+          const x = x0 + drift * t;
+          const size = 1.6 + sparkSeed(i + 200) * 2.4;
+          const opacity = Math.sin(t * Math.PI) * 0.95;
+          return (
+            <div
+              key={`spark-${i}`}
+              style={{
+                position: "absolute",
+                left: x,
+                top: y,
+                width: size,
+                height: size,
+                borderRadius: "50%",
+                backgroundColor: theme.colors.ember,
+                boxShadow: `0 0 ${size * 5}px ${theme.colors.ember}, 0 0 ${size * 12}px ${theme.colors.emberWarm}aa`,
+                opacity,
+                pointerEvents: "none",
+              }}
+            />
+          );
+        })}
 
         <div
           style={{
@@ -233,7 +322,7 @@ export const BrandIntro: React.FC = () => {
           }}
         >
           <EmberParticles
-            count={12}
+            count={28}
             centerX={0}
             centerY={-FLAME_BASE_Y - 80}
             startFrame={36}
