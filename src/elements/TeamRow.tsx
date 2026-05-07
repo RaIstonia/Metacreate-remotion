@@ -272,7 +272,10 @@ const TeamMini: React.FC<{ team: Team; startFrame: number }> = ({
   );
 };
 
-export const TeamRow: React.FC<{ startFrame: number }> = ({ startFrame }) => {
+export const TeamRow: React.FC<{
+  startFrame: number;
+  focusProgress?: number;
+}> = ({ startFrame, focusProgress = 0 }) => {
   return (
     <div
       style={{
@@ -282,9 +285,34 @@ export const TeamRow: React.FC<{ startFrame: number }> = ({ startFrame }) => {
         alignItems: "flex-start",
       }}
     >
-      {TEAMS.map((team, i) => (
-        <TeamMini key={team.name} team={team} startFrame={startFrame + i * 8} />
-      ))}
+      {TEAMS.map((team, i) => {
+        const isMiddle = i === 1;
+        const cardScale = isMiddle
+          ? 1 + 0.22 * focusProgress
+          : 1 - 0.18 * focusProgress;
+        const cardX =
+          i === 0
+            ? -64 * focusProgress
+            : i === 2
+              ? 64 * focusProgress
+              : 0;
+        const cardOpacity = isMiddle ? 1 : 1 - 0.5 * focusProgress;
+        return (
+          <div
+            key={team.name}
+            style={{
+              transform: `translateX(${cardX}px) scale(${cardScale})`,
+              opacity: cardOpacity,
+              transformOrigin: "center center",
+              filter: isMiddle
+                ? `drop-shadow(0 0 ${24 * focusProgress}px rgba(255,165,89,${0.45 * focusProgress}))`
+                : "none",
+            }}
+          >
+            <TeamMini team={team} startFrame={startFrame + i * 8} />
+          </div>
+        );
+      })}
     </div>
   );
 };

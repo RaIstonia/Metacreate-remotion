@@ -14,8 +14,8 @@ export const Root: React.FC = () => (
     <Composition
       id="BrandIntro"
       component={BrandIntro}
-      durationInFrames={192}
-      fps={24}
+      durationInFrames={240}
+      fps={30}
       width={1920}
       height={1080}
     />
@@ -23,7 +23,7 @@ export const Root: React.FC = () => (
       id="ManifestoScene"
       component={ManifestoScene}
       durationInFrames={288}
-      fps={24}
+      fps={30}
       width={1920}
       height={1080}
     />
@@ -31,7 +31,7 @@ export const Root: React.FC = () => (
       id="SearchMatchScene"
       component={SearchMatchScene}
       durationInFrames={288}
-      fps={24}
+      fps={30}
       width={1920}
       height={1080}
     />
@@ -39,31 +39,31 @@ export const Root: React.FC = () => (
       id="FindYourselfScene"
       component={FindYourselfScene}
       durationInFrames={456}
-      fps={24}
+      fps={30}
       width={1920}
       height={1080}
     />
     <Composition
       id="ConnectScene"
       component={ConnectScene}
-      durationInFrames={384}
-      fps={24}
+      durationInFrames={414}
+      fps={30}
       width={1920}
       height={1080}
     />
     <Composition
       id="CoCreateScene"
       component={CoCreateScene}
-      durationInFrames={528}
-      fps={24}
+      durationInFrames={454}
+      fps={30}
       width={1920}
       height={1080}
     />
     <Composition
       id="BrandOutro"
       component={BrandOutro}
-      durationInFrames={150}
-      fps={24}
+      durationInFrames={236}
+      fps={30}
       width={1920}
       height={1080}
     />

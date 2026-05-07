@@ -110,7 +110,7 @@ export const AICoachCard: React.FC<{
   );
 
   const aiResponse1Typed = typed(
-    "很有意思 — 数据 + 界面,这是建造者里的稀有组合。",
+    "好,可以多说说吗?现在在做什么?",
     startFrame + TIMINGS.aiResponse1Start + 8,
     frame,
     1.5
@@ -123,7 +123,7 @@ export const AICoachCard: React.FC<{
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   );
   const userBubble2Text = typed(
-    "对,想找人一起把它做出来。",
+    "做了一个可视化数据管理工具,把团队指标 dashboard 化。",
     startFrame + TIMINGS.userBubble2Start + 4,
     frame,
     1.4

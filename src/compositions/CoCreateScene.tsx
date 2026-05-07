@@ -7,7 +7,6 @@ import {
 } from "remotion";
 import { theme } from "../theme";
 import { ActOpener } from "../elements/ActOpener";
-import { TeamRow } from "../elements/TeamRow";
 import { PostsGrid } from "../elements/PostsGrid";
 import { WorksWaterfall } from "../elements/WorksWaterfall";
 
@@ -21,25 +20,19 @@ type StageWindow = {
 const STAGE1: StageWindow = {
   enterStart: 36,
   enterEnd: 60,
-  exitStart: 116,
-  exitEnd: 132,
+  exitStart: 130,
+  exitEnd: 146,
 };
 const STAGE2: StageWindow = {
-  enterStart: 116,
-  enterEnd: 140,
-  exitStart: 196,
-  exitEnd: 212,
+  enterStart: 130,
+  enterEnd: 154,
+  exitStart: 210,
+  exitEnd: 226,
 };
-const STAGE3: StageWindow = {
-  enterStart: 196,
-  enterEnd: 220,
-  exitStart: 284,
-  exitEnd: 300,
-};
-const STAGE4: StageWindow = { enterStart: 284, enterEnd: 308 };
+const STAGE3: StageWindow = { enterStart: 210, enterEnd: 234 };
 
-const SCENE_FADE_START = 512;
-const SCENE_FADE_END = 528;
+const SCENE_FADE_START = 438;
+const SCENE_FADE_END = 454;
 
 const animSlideX = (frame: number, w: StageWindow) => {
   const ease = Easing.inOut(Easing.cubic);
@@ -83,6 +76,184 @@ const animSlideY = (frame: number, w: StageWindow) => {
           easing: ease,
         });
   return { transform: `translateY(${y}px)` };
+};
+
+const PostsTagline: React.FC<{ startFrame: number }> = ({ startFrame }) => {
+  const frame = useCurrentFrame();
+  const local = frame - startFrame;
+  const segments = [
+    { text: "想法", isEmber: false },
+    { text: "作品", isEmber: false },
+    { text: "活动", isEmber: false },
+    { text: "都在这里", isEmber: true },
+  ];
+  const capsO = interpolate(local, [56, 76], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: 70,
+        left: 0,
+        right: 0,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 12,
+        pointerEvents: "none",
+      }}
+    >
+      <div style={{ display: "flex", gap: 18, alignItems: "baseline" }}>
+        {segments.map((seg, i) => {
+          const charStart = i * 12;
+          const o = interpolate(local, [charStart, charStart + 18], [0, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          });
+          const lift = interpolate(
+            local,
+            [charStart, charStart + 22],
+            [12, 0],
+            {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+              easing: Easing.out(Easing.cubic),
+            }
+          );
+          return (
+            <React.Fragment key={i}>
+              {i > 0 && (
+                <span
+                  style={{
+                    fontFamily: theme.fonts.songti,
+                    fontSize: 30,
+                    color: "rgba(255,255,255,0.35)",
+                    opacity: o,
+                  }}
+                >
+                  ·
+                </span>
+              )}
+              <span
+                style={{
+                  fontFamily: theme.fonts.songti,
+                  fontWeight: seg.isEmber ? 700 : 600,
+                  fontSize: seg.isEmber ? 38 : 34,
+                  color: seg.isEmber
+                    ? theme.colors.ember
+                    : "rgba(255,255,255,0.95)",
+                  letterSpacing: "0.06em",
+                  opacity: o,
+                  transform: `translateY(${lift}px)`,
+                  textShadow: seg.isEmber
+                    ? `0 0 22px ${theme.colors.ember}aa`
+                    : "0 4px 16px rgba(0,0,0,0.5)",
+                  lineHeight: 1,
+                }}
+              >
+                {seg.text}
+              </span>
+            </React.Fragment>
+          );
+        })}
+      </div>
+      <div
+        style={{
+          fontFamily: theme.fonts.sans,
+          fontWeight: 600,
+          fontSize: 11,
+          color: "rgba(255,165,89,0.62)",
+          letterSpacing: "0.5em",
+          textTransform: "uppercase",
+          paddingLeft: "0.5em",
+          opacity: capsO,
+        }}
+      >
+        Ideas · Works · Events · All Here
+      </div>
+    </div>
+  );
+};
+
+const WorksTagline: React.FC<{ startFrame: number }> = ({ startFrame }) => {
+  const frame = useCurrentFrame();
+  const local = frame - startFrame;
+  const items = [
+    { text: "发布作品", isEmber: false },
+    { text: "加入活动", isEmber: false },
+    { text: "被对的人看见", isEmber: true },
+  ];
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: "50%",
+        left: 100,
+        transform: "translateY(-50%)",
+        display: "flex",
+        flexDirection: "column",
+        gap: 28,
+        pointerEvents: "none",
+      }}
+    >
+      {items.map((item, i) => {
+        const itemStart = i * 16;
+        const o = interpolate(local, [itemStart, itemStart + 22], [0, 1], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        const x = interpolate(local, [itemStart, itemStart + 26], [-32, 0], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+          easing: Easing.out(Easing.cubic),
+        });
+        return (
+          <div
+            key={i}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 14,
+              opacity: o,
+              transform: `translateX(${x}px)`,
+            }}
+          >
+            <span
+              style={{
+                width: item.isEmber ? 28 : 14,
+                height: 1.5,
+                background: item.isEmber
+                  ? theme.colors.ember
+                  : "rgba(255,255,255,0.4)",
+                boxShadow: item.isEmber
+                  ? `0 0 8px ${theme.colors.ember}`
+                  : "none",
+              }}
+            />
+            <span
+              style={{
+                fontFamily: theme.fonts.songti,
+                fontWeight: item.isEmber ? 700 : 500,
+                fontSize: item.isEmber ? 32 : 26,
+                color: item.isEmber
+                  ? theme.colors.ember
+                  : "rgba(255,255,255,0.92)",
+                letterSpacing: "0.08em",
+                textShadow: item.isEmber
+                  ? `0 0 22px ${theme.colors.ember}aa`
+                  : "0 4px 16px rgba(0,0,0,0.5)",
+                lineHeight: 1,
+              }}
+            >
+              {item.text}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 const SandwichTitle: React.FC<{
@@ -738,8 +909,7 @@ export const CoCreateScene: React.FC = () => {
 
   const stage1Style = animSlideX(frame, STAGE1);
   const stage2Style = animSlideY(frame, STAGE2);
-  const stage3Style = animSlideX(frame, STAGE3);
-  const stage4Style = animSlideY(frame, STAGE4);
+  const stage3Style = animSlideY(frame, STAGE3);
 
   return (
     <AbsoluteFill
@@ -756,41 +926,29 @@ export const CoCreateScene: React.FC = () => {
       />
 
       <AbsoluteFill style={stage1Style}>
-        <SandwichTitle
-          topText="建立"
-          bottomText="队伍"
-          en="FORM TEAMS"
-          startFrame={STAGE1.enterStart + 14}
-        />
-        <AbsoluteFill
-          style={{ alignItems: "center", justifyContent: "center" }}
-        >
-          <TeamRow startFrame={STAGE1.enterStart + 22} />
-        </AbsoluteFill>
-      </AbsoluteFill>
-
-      <AbsoluteFill style={stage2Style}>
+        <PostsTagline startFrame={STAGE1.enterStart + 12} />
         <AbsoluteFill
           style={{
             alignItems: "center",
             justifyContent: "center",
-            padding: "80px 60px 60px",
+            padding: "180px 60px 60px",
           }}
         >
-          <PostsGrid startFrame={STAGE2.enterStart + 18} />
+          <PostsGrid startFrame={STAGE1.enterStart + 28} />
+        </AbsoluteFill>
+      </AbsoluteFill>
+
+      <AbsoluteFill style={stage2Style}>
+        <WorksTagline startFrame={STAGE2.enterStart + 12} />
+        <AbsoluteFill
+          style={{ alignItems: "center", justifyContent: "center" }}
+        >
+          <WorksWaterfall startFrame={STAGE2.enterStart + 24} />
         </AbsoluteFill>
       </AbsoluteFill>
 
       <AbsoluteFill style={stage3Style}>
-        <AbsoluteFill
-          style={{ alignItems: "center", justifyContent: "center" }}
-        >
-          <WorksWaterfall startFrame={STAGE3.enterStart + 16} />
-        </AbsoluteFill>
-      </AbsoluteFill>
-
-      <AbsoluteFill style={stage4Style}>
-        <HackathonFinale stageEnter={STAGE4.enterEnd} />
+        <HackathonFinale stageEnter={STAGE3.enterEnd} />
       </AbsoluteFill>
     </AbsoluteFill>
   );

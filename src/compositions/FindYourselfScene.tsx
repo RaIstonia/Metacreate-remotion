@@ -64,7 +64,7 @@ export const FindYourselfScene: React.FC = () => {
   );
   const chatY = interpolate(
     frame,
-    [0, SHIFT_START, SHIFT_END, ZOOM_START, ZOOM_END],
+    [0, SHIFT_START, SHIFT_END, 316, 340],
     [CHAT_Y_CENTER, CHAT_Y_CENTER, CHAT_Y_LEFT, CHAT_Y_LEFT, -360],
     {
       extrapolateLeft: "clamp",
@@ -72,12 +72,10 @@ export const FindYourselfScene: React.FC = () => {
       easing: Easing.inOut(Easing.cubic),
     }
   );
-  const chatOpacity = interpolate(
-    frame,
-    [ZOOM_START + 14, ZOOM_END],
-    [1, 0],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
+  const chatOpacity = interpolate(frame, [316, 340], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   const showManual = frame >= MANUAL_APPEAR - 8;
   const manualEnter = interpolate(
@@ -102,8 +100,8 @@ export const FindYourselfScene: React.FC = () => {
   );
   const manualScale = interpolate(
     frame,
-    [ZOOM_START, ZOOM_END],
-    [1, 1.35],
+    [320, 360],
+    [1, 1.18],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
@@ -112,8 +110,8 @@ export const FindYourselfScene: React.FC = () => {
   );
   const manualY = interpolate(
     frame,
-    [ZOOM_START, ZOOM_END],
-    [MANUAL_TOP_REST, MANUAL_TOP_ZOOM],
+    [320, 360],
+    [MANUAL_TOP_REST, 320],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
@@ -121,7 +119,45 @@ export const FindYourselfScene: React.FC = () => {
     }
   );
 
+  const TAGLINE1_FADE = 340;
+  const TAGLINE2_FADE = 364;
+
+  const tagline1Opacity = interpolate(
+    frame,
+    [TAGLINE1_FADE, TAGLINE1_FADE + 28],
+    [0, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  const tagline1Lift = interpolate(
+    frame,
+    [TAGLINE1_FADE, TAGLINE1_FADE + 32],
+    [14, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: Easing.out(Easing.cubic),
+    }
+  );
+
+  const tagline2Opacity = interpolate(
+    frame,
+    [TAGLINE2_FADE, TAGLINE2_FADE + 28],
+    [0, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  const tagline2Lift = interpolate(
+    frame,
+    [TAGLINE2_FADE, TAGLINE2_FADE + 32],
+    [10, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: Easing.out(Easing.cubic),
+    }
+  );
+
   const rightVisible = frame >= RIGHT_REVEAL_START - 8;
+  const taglineVisible = frame >= TAGLINE1_FADE - 8;
 
   return (
     <AbsoluteFill
@@ -238,6 +274,51 @@ export const FindYourselfScene: React.FC = () => {
         </div>
       )}
 
+      {taglineVisible && (
+        <>
+          <div
+            style={{
+              position: "absolute",
+              left: CHAT_X_LEFT,
+              top: 130,
+              width: 720,
+              fontFamily: theme.fonts.songti,
+              fontWeight: 600,
+              fontSize: 40,
+              color: "rgba(255,255,255,0.96)",
+              letterSpacing: "0.04em",
+              lineHeight: 1.25,
+              opacity: tagline1Opacity,
+              transform: `translateY(${tagline1Lift}px)`,
+              textShadow: "0 4px 24px rgba(0,0,0,0.7)",
+              pointerEvents: "none",
+            }}
+          >
+            AI 职业教练帮你说清楚你是谁
+          </div>
+          <div
+            style={{
+              position: "absolute",
+              left: CHAT_X_LEFT,
+              top: 215,
+              width: 720,
+              fontFamily: theme.fonts.songti,
+              fontWeight: 500,
+              fontSize: 24,
+              color: theme.colors.ember,
+              letterSpacing: "0.1em",
+              lineHeight: 1.3,
+              opacity: tagline2Opacity,
+              transform: `translateY(${tagline2Lift}px)`,
+              textShadow: `0 0 18px ${theme.colors.ember}66`,
+              pointerEvents: "none",
+            }}
+          >
+            把自己清晰展现
+          </div>
+        </>
+      )}
+
       {rightVisible && (
         <TypewriterPanel
           startFrame={RIGHT_REVEAL_START}
@@ -245,7 +326,6 @@ export const FindYourselfScene: React.FC = () => {
           titleEn="PERSONAL MANUAL"
           subtitle="用交流 找到自我"
           subtitleEn="DIALOGUE TO DISCOVER"
-          subtitleDelay={90}
         />
       )}
     </AbsoluteFill>

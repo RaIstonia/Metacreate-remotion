@@ -13,27 +13,36 @@ import {
   type CreatorMock,
 } from "../elements/CreatorCardMock";
 import { SwipeCard, type SwipeProfile } from "../elements/SwipeCard";
+import { TeamRow } from "../elements/TeamRow";
 
 const QUERY = "3D modeler · 北京";
 
-const SEARCH_START = 24;
-const SEARCH_ZOOM_IN_END = 48;
-const QUERY_TYPE_START = 50;
-const QUERY_TYPE_END = 92;
-const ZOOM_OUT_START = 100;
-const ZOOM_OUT_END = 124;
-const FILTERS_START = 118;
-const SIDE_LABELS_START = 110;
-const CARDS_START = 134;
-const LIST_HOLD_END = 222;
-const LIST_FADE_END = 244;
+const SEARCH_START = 16;
+const SEARCH_ZOOM_IN_END = 36;
+const QUERY_TYPE_START = 38;
+const QUERY_TYPE_END = 74;
+const ZOOM_OUT_START = 78;
+const ZOOM_OUT_END = 100;
+const FILTERS_START = 96;
+const SIDE_LABELS_START = 90;
+const CARDS_START = 110;
+const SCORE_REVEAL_START = CARDS_START + 18;
+const SCORE_REVEAL_END = CARDS_START + 42;
+const LIST_HOLD_END = 152;
+const LIST_FADE_END = 168;
 
-const SWIPE_START = 244;
-const SLIDE_TITLE_START = 264;
-const FAN_OUT_START = 296;
-const FAN_OUT_END = 326;
-const TOP_SLIDE_START = 326;
-const TOP_SLIDE_END = 360;
+const SWIPE_START = 168;
+const SLIDE_TITLE_START = 186;
+const FAN_OUT_START = 212;
+const FAN_OUT_END = 234;
+const TOP_SLIDE_START = 234;
+const TOP_SLIDE_END = 260;
+
+const TEAM_VIEW_START = 284;
+const TEAM_TAGLINE1_START = 288;
+const TEAM_ROW_START = 312;
+const TEAM_TAGLINE2_START = 348;
+const SCENE_END = 414;
 
 const CREATORS: CreatorMock[] = [
   {
@@ -387,11 +396,23 @@ export const ConnectScene: React.FC = () => {
     },
   ];
 
+  const sharedScoreReveal = interpolate(
+    frame,
+    [SCORE_REVEAL_START, SCORE_REVEAL_END],
+    [0, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: Easing.out(Easing.cubic),
+    }
+  );
+  const sharedScorePulse = 0;
+
   const cards = CREATORS.map((c, i) => {
-    const slideStart = CARDS_START + i * 14;
+    const slideStart = CARDS_START + i * 4;
     const slideOpacity = interpolate(
       frame,
-      [slideStart, slideStart + 22],
+      [slideStart, slideStart + 18],
       [0, 1],
       {
         extrapolateLeft: "clamp",
@@ -401,37 +422,105 @@ export const ConnectScene: React.FC = () => {
     );
     const slideLift = interpolate(
       frame,
-      [slideStart, slideStart + 26],
-      [44, 0],
+      [slideStart, slideStart + 22],
+      [40, 0],
       {
         extrapolateLeft: "clamp",
         extrapolateRight: "clamp",
         easing: Easing.out(Easing.cubic),
       }
     );
-    const scoreReveal = interpolate(
-      frame,
-      [slideStart + 18, slideStart + 56],
-      [0, 1],
-      {
-        extrapolateLeft: "clamp",
-        extrapolateRight: "clamp",
-        easing: Easing.out(Easing.cubic),
-      }
-    );
-    const scorePulse = interpolate(
-      frame,
-      [slideStart + 50, slideStart + 60, slideStart + 80],
-      [0, 1, 0],
-      { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-    );
-    return { creator: c, slideOpacity, slideLift, scoreReveal, scorePulse };
+    return {
+      creator: c,
+      slideOpacity,
+      slideLift,
+      scoreReveal: sharedScoreReveal,
+      scorePulse: sharedScorePulse,
+    };
   });
 
   const swipeOpacity = interpolate(
     frame,
-    [SWIPE_START, SWIPE_START + 18, 366, 384],
+    [SWIPE_START, SWIPE_START + 18, 268, 284],
     [0, 1, 1, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+
+  const teamOpacity = interpolate(
+    frame,
+    [TEAM_VIEW_START, TEAM_VIEW_START + 18],
+    [0, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  const teamSlideX = interpolate(
+    frame,
+    [TEAM_VIEW_START, TEAM_VIEW_START + 24],
+    [200, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: Easing.out(Easing.cubic),
+    }
+  );
+  const teamRowScale = interpolate(
+    frame,
+    [TEAM_ROW_START, TEAM_ROW_START + 32],
+    [0.85, 1.12],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: Easing.out(Easing.cubic),
+    }
+  );
+  const teamFocusProgress = interpolate(
+    frame,
+    [TEAM_ROW_START + 32, TEAM_ROW_START + 56],
+    [0, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: Easing.inOut(Easing.cubic),
+    }
+  );
+
+  const teamTagline1Opacity = interpolate(
+    frame,
+    [TEAM_TAGLINE1_START, TEAM_TAGLINE1_START + 24],
+    [0, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  const teamTagline1Lift = interpolate(
+    frame,
+    [TEAM_TAGLINE1_START, TEAM_TAGLINE1_START + 28],
+    [16, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: Easing.out(Easing.cubic),
+    }
+  );
+
+  const teamTagline2Opacity = interpolate(
+    frame,
+    [TEAM_TAGLINE2_START, TEAM_TAGLINE2_START + 24],
+    [0, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  const teamTagline2Lift = interpolate(
+    frame,
+    [TEAM_TAGLINE2_START, TEAM_TAGLINE2_START + 28],
+    [12, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: Easing.out(Easing.cubic),
+    }
+  );
+
+  const sceneFade = interpolate(
+    frame,
+    [SCENE_END - 16, SCENE_END],
+    [1, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   );
 
@@ -467,6 +556,7 @@ export const ConnectScene: React.FC = () => {
     <AbsoluteFill
       style={{
         background: `radial-gradient(ellipse at center, ${theme.colors.voidDeep} 0%, ${theme.colors.voidBlack} 80%)`,
+        opacity: sceneFade,
       }}
     >
       <ActOpener
@@ -617,6 +707,111 @@ export const ConnectScene: React.FC = () => {
               zIndex={3}
               isTop={true}
             />
+          </div>
+        </div>
+      </AbsoluteFill>
+
+      <AbsoluteFill
+        style={{
+          opacity: teamOpacity,
+          transform: `translateX(${teamSlideX}px)`,
+          pointerEvents: "none",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 110,
+            left: 0,
+            right: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 14,
+            opacity: teamTagline1Opacity,
+            transform: `translateY(${teamTagline1Lift}px)`,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: theme.fonts.songti,
+              fontWeight: 700,
+              fontSize: 96,
+              color: "rgba(255,255,255,0.96)",
+              letterSpacing: "0.04em",
+              lineHeight: 1,
+              textShadow: "0 4px 24px rgba(0,0,0,0.6)",
+            }}
+          >
+            链接志同道合的人
+          </div>
+          <div
+            style={{
+              fontFamily: theme.fonts.sans,
+              fontWeight: 600,
+              fontSize: 13,
+              color: "rgba(255,165,89,0.78)",
+              letterSpacing: "0.5em",
+              textTransform: "uppercase",
+              paddingLeft: "0.5em",
+              lineHeight: 1,
+            }}
+          >
+            Kindred Spirits
+          </div>
+        </div>
+
+        <AbsoluteFill
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            transform: `scale(${teamRowScale})`,
+          }}
+        >
+          <TeamRow
+            startFrame={TEAM_ROW_START}
+            focusProgress={teamFocusProgress}
+          />
+        </AbsoluteFill>
+
+        <div
+          style={{
+            position: "absolute",
+            bottom: 230,
+            left: 0,
+            right: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 8,
+            opacity: teamTagline2Opacity,
+            transform: `translateY(${teamTagline2Lift}px)`,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: theme.fonts.songti,
+              fontWeight: 600,
+              fontSize: 28,
+              color: theme.colors.ember,
+              letterSpacing: "0.1em",
+              textShadow: `0 0 18px ${theme.colors.ember}66`,
+            }}
+          >
+            精准匹配技能互补的队友
+          </div>
+          <div
+            style={{
+              fontFamily: theme.fonts.sans,
+              fontSize: 12,
+              fontWeight: 600,
+              letterSpacing: "0.45em",
+              textTransform: "uppercase",
+              color: "rgba(255,165,89,0.65)",
+              paddingLeft: "0.45em",
+            }}
+          >
+            COMPLEMENTARY · SKILLS
           </div>
         </div>
       </AbsoluteFill>

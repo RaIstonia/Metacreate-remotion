@@ -80,19 +80,66 @@ export const BrandOutro: React.FC = () => {
     easing: Easing.out(Easing.cubic),
   });
 
-  const wordmarkOpacity = interpolate(frame, [92, 124], [0, 1], {
+  const wordmarkOpacity = interpolate(frame, [88, 118], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const taglineOpacity = interpolate(frame, [110, 140], [0, 1], {
+  const brandNameOpacity = interpolate(frame, [114, 142], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+  const brandNameLift = interpolate(frame, [114, 146], [12, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+  const line1Opacity = interpolate(frame, [136, 162], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const line1Lift = interpolate(frame, [136, 166], [10, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+  const line2Opacity = interpolate(frame, [156, 182], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const line2Lift = interpolate(frame, [156, 186], [10, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+
+  const sceneFade = interpolate(frame, [220, 236], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  const scrollerStart = 60;
+  const scrollerEnd = 222;
+  const scrollerX = interpolate(
+    frame,
+    [scrollerStart, scrollerEnd],
+    [1920, 460],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: Easing.linear,
+    }
+  );
+  const scrollerOpacity = interpolate(
+    frame,
+    [scrollerStart, scrollerStart + 24, scrollerEnd - 18, scrollerEnd],
+    [0, 1, 1, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
 
   const radialBg = `radial-gradient(circle at center, ${theme.colors.voidDeep} 0%, ${theme.colors.voidBlack} 70%)`;
 
   return (
-    <AbsoluteFill style={{ background: radialBg }}>
+    <AbsoluteFill style={{ background: radialBg, opacity: sceneFade }}>
       <div
         style={{
           position: "absolute",
@@ -213,14 +260,105 @@ export const BrandOutro: React.FC = () => {
         }}
       />
 
-      <AbsoluteFill style={{ alignItems: "center", justifyContent: "center" }}>
-        <Wordmark
-          opacity={wordmarkOpacity}
-          showTagline
-          taglineOpacity={taglineOpacity}
-          size="xl"
-        />
+      <AbsoluteFill
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+          gap: 0,
+          pointerEvents: "none",
+        }}
+      >
+        <Wordmark opacity={wordmarkOpacity} size="xl" />
+
+        <div
+          style={{
+            marginTop: 26,
+            fontFamily: theme.fonts.songti,
+            fontWeight: 700,
+            fontSize: 30,
+            color: theme.colors.ember,
+            letterSpacing: "0.42em",
+            paddingLeft: "0.42em",
+            opacity: brandNameOpacity,
+            transform: `translateY(${brandNameLift}px)`,
+            textShadow: `0 0 22px ${theme.colors.ember}aa`,
+            lineHeight: 1,
+          }}
+        >
+          元创星球
+        </div>
+
+        <div
+          style={{
+            marginTop: 28,
+            fontFamily: theme.fonts.songti,
+            fontWeight: 500,
+            fontSize: 22,
+            color: "rgba(245,241,234,0.92)",
+            letterSpacing: "0.08em",
+            opacity: line1Opacity,
+            transform: `translateY(${line1Lift}px)`,
+            textShadow: "0 2px 12px rgba(0,0,0,0.6)",
+            lineHeight: 1.3,
+          }}
+        >
+          专为创造者打造的交互网络。
+        </div>
+
+        <div
+          style={{
+            marginTop: 8,
+            fontFamily: theme.fonts.songti,
+            fontWeight: 500,
+            fontSize: 22,
+            color: "rgba(245,241,234,0.85)",
+            letterSpacing: "0.08em",
+            opacity: line2Opacity,
+            transform: `translateY(${line2Lift}px)`,
+            textShadow: "0 2px 12px rgba(0,0,0,0.6)",
+            lineHeight: 1.3,
+          }}
+        >
+          找到与你共鸣的人,一起把脑子里那件事做出来。
+        </div>
       </AbsoluteFill>
+
+      <div
+        style={{
+          position: "absolute",
+          bottom: 64,
+          left: 0,
+          right: 0,
+          height: 60,
+          overflow: "hidden",
+          opacity: scrollerOpacity,
+          pointerEvents: "none",
+          WebkitMaskImage:
+            "linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)",
+          maskImage:
+            "linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)",
+        }}
+      >
+        <div
+          style={{
+            transform: `translateX(${scrollerX}px)`,
+            whiteSpace: "nowrap",
+            display: "inline-block",
+            fontFamily: theme.fonts.sans,
+            fontSize: 21,
+            fontWeight: 500,
+            letterSpacing: "0.45em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.6)",
+            paddingLeft: "0.45em",
+            lineHeight: "60px",
+            textShadow: "0 2px 10px rgba(0,0,0,0.55)",
+          }}
+        >
+          PKU&nbsp;&nbsp;&middot;&nbsp;&nbsp;TSINGHUA&nbsp;&nbsp;&middot;&nbsp;&nbsp;COLUMBIA&nbsp;&nbsp;&middot;&nbsp;&nbsp;HKU&nbsp;&nbsp;&middot;&nbsp;&nbsp;YALE&nbsp;&nbsp;&middot;&nbsp;&nbsp;NUS
+        </div>
+      </div>
     </AbsoluteFill>
   );
 };

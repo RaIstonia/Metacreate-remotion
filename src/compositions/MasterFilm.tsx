@@ -7,13 +7,13 @@ import { CoCreateScene } from "./CoCreateScene";
 import { BrandOutro } from "./BrandOutro";
 import { theme } from "../theme";
 
-export const MASTER_FPS = 24;
+export const MASTER_FPS = 30;
 
-export const INTRO_DURATION = 192;
+export const INTRO_DURATION = 240;
 export const ACT1_DURATION = 456;
-export const ACT2_DURATION = 384;
-export const ACT3_DURATION = 528;
-export const OUTRO_DURATION = 150;
+export const ACT2_DURATION = 414;
+export const ACT3_DURATION = 454;
+export const OUTRO_DURATION = 236;
 
 export const MASTER_DURATION =
   INTRO_DURATION +

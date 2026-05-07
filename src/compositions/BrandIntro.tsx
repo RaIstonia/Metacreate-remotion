@@ -34,7 +34,7 @@ const FlameBodyPath: React.FC<{
     >
       <svg width="280" height="402" viewBox="0 0 117 168" fill="none">
         <path
-          d="M58.5 168C26 168 0 141 0 109C0 88 12 65 30 46C42 30 52 14 58.5 0C65 14 75 30 87 46C105 65 117 88 117 109C117 141 91 168 58.5 168Z"
+          d="M58.5 167.7C26.1913 167.7 0 141.508 0 109.2C0 92.4004 7.08131 77.2551 18.422 66.5855C28.8914 56.7352 54.6 38.9962 50.7 0C97.5 31.2 120.9 62.4 74.1 109.2C81.9 109.2 93.6 109.2 113.1 89.9309C115.204 95.965 117 102.449 117 109.2C117 141.508 90.8084 167.7 58.5 167.7Z"
           fill="url(#mfBrandGrad)"
         />
         {withEyes && (
@@ -141,6 +141,26 @@ export const BrandIntro: React.FC = () => {
     extrapolateRight: "clamp",
   });
 
+  const tagline1Opacity = interpolate(frame, [168, 196], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const tagline1Lift = interpolate(frame, [168, 200], [10, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+
+  const tagline2Opacity = interpolate(frame, [188, 216], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const tagline2Lift = interpolate(frame, [188, 220], [8, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+
   const ignitionFlash = interpolate(frame, [16, 22, 36], [0, 1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -236,6 +256,22 @@ export const BrandIntro: React.FC = () => {
             withEyes={false}
             flicker={0.3}
           />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              opacity: eyesPop,
+              transform: `scale(${0.9 + eyesPop * 0.1})`,
+              transformOrigin: "center 134px",
+            }}
+          >
+            <svg width="280" height="402" viewBox="0 0 117 168" fill="none">
+              <path
+                d="M69.3066 134.397C71.8035 132.516 73.7631 129.96 74.915 127C77.4364 128.957 79.5843 131.371 81.2354 134.119C79.5047 136.999 77.2292 139.515 74.5488 141.52C73.4741 138.691 71.6453 136.235 69.3066 134.397ZM37 134.119C38.651 131.371 40.7998 128.957 43.3213 127C44.4731 129.96 46.4322 132.516 48.9287 134.397C46.5904 136.235 44.7621 138.692 43.6875 141.52C41.0071 139.515 38.7307 136.999 37 134.119Z"
+                fill="#000"
+              />
+            </svg>
+          </div>
         </div>
 
         <div
@@ -335,10 +371,42 @@ export const BrandIntro: React.FC = () => {
         style={{
           alignItems: "center",
           justifyContent: "flex-end",
-          paddingBottom: 140,
+          paddingBottom: 90,
+          pointerEvents: "none",
         }}
       >
         <Wordmark opacity={wordmarkOpacity} />
+        <div
+          style={{
+            marginTop: 28,
+            fontFamily: theme.fonts.songti,
+            fontWeight: 500,
+            fontSize: 30,
+            color: `${theme.colors.starlight}e0`,
+            letterSpacing: "0.06em",
+            opacity: tagline1Opacity,
+            transform: `translateY(${tagline1Lift}px)`,
+            textShadow: "0 2px 16px rgba(0,0,0,0.7)",
+          }}
+        >
+          你有想法,缺的只是那个人
+        </div>
+        <div
+          style={{
+            marginTop: 14,
+            fontFamily: theme.fonts.songti,
+            fontWeight: 600,
+            fontSize: 20,
+            color: theme.colors.ember,
+            letterSpacing: "0.42em",
+            opacity: tagline2Opacity,
+            transform: `translateY(${tagline2Lift}px)`,
+            textShadow: `0 0 18px ${theme.colors.ember}aa`,
+            paddingLeft: "0.42em",
+          }}
+        >
+          元创星球
+        </div>
       </AbsoluteFill>
     </AbsoluteFill>
   );
