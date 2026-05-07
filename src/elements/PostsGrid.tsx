@@ -336,7 +336,7 @@ const GridTitle: React.FC<{
       <div
         style={{
           fontFamily: theme.fonts.sans,
-          fontSize: 13,
+          fontSize: 18,
           fontWeight: 600,
           letterSpacing: "0.5em",
           textTransform: "uppercase",

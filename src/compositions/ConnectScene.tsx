@@ -221,7 +221,7 @@ const VerticalSideTitle: React.FC<{
               style={{
                 fontFamily: theme.fonts.songti,
                 fontWeight: 700,
-                fontSize: 110,
+                fontSize: 154,
                 lineHeight: 1,
                 color: "rgba(255,255,255,0.96)",
                 opacity: charO,
@@ -236,9 +236,9 @@ const VerticalSideTitle: React.FC<{
       </div>
       <div
         style={{
-          marginTop: 18,
+          marginTop: 22,
           fontFamily: theme.fonts.sans,
-          fontSize: 13,
+          fontSize: 18,
           fontWeight: 600,
           letterSpacing: "0.4em",
           textTransform: "uppercase",
@@ -267,7 +267,7 @@ const SwipeTitle: React.FC<{ startFrame: number }> = ({ startFrame }) => {
     <div
       style={{
         position: "absolute",
-        top: 110,
+        top: 60,
         left: 0,
         right: 0,
         display: "flex",
@@ -281,11 +281,11 @@ const SwipeTitle: React.FC<{ startFrame: number }> = ({ startFrame }) => {
         style={{
           fontFamily: theme.fonts.songti,
           fontWeight: 700,
-          fontSize: 100,
+          fontSize: 140,
           color: "rgba(255,255,255,0.96)",
           lineHeight: 1,
           display: "flex",
-          gap: 10,
+          gap: 14,
           textShadow: "0 4px 24px rgba(0,0,0,0.55)",
         }}
       >
@@ -308,7 +308,7 @@ const SwipeTitle: React.FC<{ startFrame: number }> = ({ startFrame }) => {
       <div
         style={{
           fontFamily: theme.fonts.sans,
-          fontSize: 13,
+          fontSize: 18,
           fontWeight: 600,
           letterSpacing: "0.5em",
           textTransform: "uppercase",
@@ -650,7 +650,7 @@ export const ConnectScene: React.FC = () => {
             position: "relative",
             width: 420,
             height: 580,
-            marginTop: 40,
+            marginTop: 180,
           }}
         >
           <div
@@ -736,7 +736,7 @@ export const ConnectScene: React.FC = () => {
             style={{
               fontFamily: theme.fonts.songti,
               fontWeight: 700,
-              fontSize: 96,
+              fontSize: 134,
               color: "rgba(255,255,255,0.96)",
               letterSpacing: "0.04em",
               lineHeight: 1,
@@ -749,7 +749,7 @@ export const ConnectScene: React.FC = () => {
             style={{
               fontFamily: theme.fonts.sans,
               fontWeight: 600,
-              fontSize: 13,
+              fontSize: 18,
               color: "rgba(255,165,89,0.78)",
               letterSpacing: "0.5em",
               textTransform: "uppercase",
@@ -792,10 +792,10 @@ export const ConnectScene: React.FC = () => {
             style={{
               fontFamily: theme.fonts.songti,
               fontWeight: 600,
-              fontSize: 28,
+              fontSize: 39,
               color: theme.colors.ember,
               letterSpacing: "0.1em",
-              textShadow: `0 0 18px ${theme.colors.ember}66`,
+              textShadow: `0 0 22px ${theme.colors.ember}77`,
             }}
           >
             精准匹配技能互补的队友
@@ -803,7 +803,7 @@ export const ConnectScene: React.FC = () => {
           <div
             style={{
               fontFamily: theme.fonts.sans,
-              fontSize: 12,
+              fontSize: 17,
               fontWeight: 600,
               letterSpacing: "0.45em",
               textTransform: "uppercase",

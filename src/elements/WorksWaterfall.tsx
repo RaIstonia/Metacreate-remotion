@@ -273,10 +273,10 @@ const VerticalTitle: React.FC<{ startFrame: number; text: string; en: string }> 
       </div>
       <div
         style={{
-          marginTop: 18,
+          marginTop: 22,
           fontFamily: theme.fonts.sans,
           fontWeight: 600,
-          fontSize: 12,
+          fontSize: 17,
           letterSpacing: "0.42em",
           textTransform: "uppercase",
           color: "rgba(255,255,255,0.5)",

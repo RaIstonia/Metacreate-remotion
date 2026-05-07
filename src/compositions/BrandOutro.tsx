@@ -112,7 +112,7 @@ export const BrandOutro: React.FC = () => {
     easing: Easing.out(Easing.cubic),
   });
 
-  const sceneFade = interpolate(frame, [220, 236], [1, 0], {
+  const sceneFade = interpolate(frame, [200, 236], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -122,7 +122,7 @@ export const BrandOutro: React.FC = () => {
   const scrollerX = interpolate(
     frame,
     [scrollerStart, scrollerEnd],
-    [1920, 460],
+    [1920, 80],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
@@ -273,16 +273,16 @@ export const BrandOutro: React.FC = () => {
 
         <div
           style={{
-            marginTop: 26,
+            marginTop: 32,
             fontFamily: theme.fonts.songti,
             fontWeight: 700,
-            fontSize: 30,
+            fontSize: 42,
             color: theme.colors.ember,
             letterSpacing: "0.42em",
             paddingLeft: "0.42em",
             opacity: brandNameOpacity,
             transform: `translateY(${brandNameLift}px)`,
-            textShadow: `0 0 22px ${theme.colors.ember}aa`,
+            textShadow: `0 0 26px ${theme.colors.ember}aa`,
             lineHeight: 1,
           }}
         >
@@ -291,15 +291,15 @@ export const BrandOutro: React.FC = () => {
 
         <div
           style={{
-            marginTop: 28,
+            marginTop: 34,
             fontFamily: theme.fonts.songti,
             fontWeight: 500,
-            fontSize: 22,
+            fontSize: 31,
             color: "rgba(245,241,234,0.92)",
             letterSpacing: "0.08em",
             opacity: line1Opacity,
             transform: `translateY(${line1Lift}px)`,
-            textShadow: "0 2px 12px rgba(0,0,0,0.6)",
+            textShadow: "0 2px 14px rgba(0,0,0,0.6)",
             lineHeight: 1.3,
           }}
         >
@@ -308,10 +308,10 @@ export const BrandOutro: React.FC = () => {
 
         <div
           style={{
-            marginTop: 8,
+            marginTop: 12,
             fontFamily: theme.fonts.songti,
             fontWeight: 500,
-            fontSize: 22,
+            fontSize: 31,
             color: "rgba(245,241,234,0.85)",
             letterSpacing: "0.08em",
             opacity: line2Opacity,
@@ -327,10 +327,10 @@ export const BrandOutro: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          bottom: 64,
+          bottom: 50,
           left: 0,
           right: 0,
-          height: 60,
+          height: 84,
           overflow: "hidden",
           opacity: scrollerOpacity,
           pointerEvents: "none",
@@ -346,13 +346,13 @@ export const BrandOutro: React.FC = () => {
             whiteSpace: "nowrap",
             display: "inline-block",
             fontFamily: theme.fonts.sans,
-            fontSize: 21,
+            fontSize: 30,
             fontWeight: 500,
             letterSpacing: "0.45em",
             textTransform: "uppercase",
             color: "rgba(255,255,255,0.6)",
             paddingLeft: "0.45em",
-            lineHeight: "60px",
+            lineHeight: "84px",
             textShadow: "0 2px 10px rgba(0,0,0,0.55)",
           }}
         >

@@ -128,7 +128,7 @@ const PostsTagline: React.FC<{ startFrame: number }> = ({ startFrame }) => {
                 <span
                   style={{
                     fontFamily: theme.fonts.songti,
-                    fontSize: 30,
+                    fontSize: 42,
                     color: "rgba(255,255,255,0.35)",
                     opacity: o,
                   }}
@@ -140,7 +140,7 @@ const PostsTagline: React.FC<{ startFrame: number }> = ({ startFrame }) => {
                 style={{
                   fontFamily: theme.fonts.songti,
                   fontWeight: seg.isEmber ? 700 : 600,
-                  fontSize: seg.isEmber ? 38 : 34,
+                  fontSize: seg.isEmber ? 53 : 48,
                   color: seg.isEmber
                     ? theme.colors.ember
                     : "rgba(255,255,255,0.95)",
@@ -163,7 +163,7 @@ const PostsTagline: React.FC<{ startFrame: number }> = ({ startFrame }) => {
         style={{
           fontFamily: theme.fonts.sans,
           fontWeight: 600,
-          fontSize: 11,
+          fontSize: 16,
           color: "rgba(255,165,89,0.62)",
           letterSpacing: "0.5em",
           textTransform: "uppercase",
@@ -236,7 +236,7 @@ const WorksTagline: React.FC<{ startFrame: number }> = ({ startFrame }) => {
               style={{
                 fontFamily: theme.fonts.songti,
                 fontWeight: item.isEmber ? 700 : 500,
-                fontSize: item.isEmber ? 32 : 26,
+                fontSize: item.isEmber ? 45 : 36,
                 color: item.isEmber
                   ? theme.colors.ember
                   : "rgba(255,255,255,0.92)",
@@ -573,11 +573,11 @@ const HackathonFinale: React.FC<{ stageEnter: number }> = ({ stageEnter }) => {
                 style={{
                   fontFamily: theme.fonts.songti,
                   fontWeight: 700,
-                  fontSize: 22,
+                  fontSize: 31,
                   color: "rgba(255,255,255,0.94)",
                   letterSpacing: "0.04em",
-                  marginBottom: 6,
-                  textShadow: `0 0 12px ${p.color}cc, 0 2px 12px rgba(0,0,0,0.6)`,
+                  marginBottom: 8,
+                  textShadow: `0 0 16px ${p.color}cc, 0 2px 14px rgba(0,0,0,0.6)`,
                   lineHeight: 1,
                 }}
               >
@@ -587,7 +587,7 @@ const HackathonFinale: React.FC<{ stageEnter: number }> = ({ stageEnter }) => {
                 style={{
                   fontFamily: theme.fonts.sans,
                   fontWeight: 600,
-                  fontSize: 11,
+                  fontSize: 15,
                   letterSpacing: "0.42em",
                   textTransform: "uppercase",
                   color: p.color,
@@ -667,27 +667,27 @@ const HackathonFinale: React.FC<{ stageEnter: number }> = ({ stageEnter }) => {
         <div
           style={{
             position: "absolute",
-            top: 280,
+            top: 180,
             left: 0,
             right: 0,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 10,
+            gap: 14,
             pointerEvents: "none",
           }}
         >
           <div
             style={{
               display: "flex",
-              gap: 10,
+              gap: 14,
               fontFamily: theme.fonts.songti,
               fontWeight: 700,
-              fontSize: 96,
+              fontSize: 134,
               color: "rgba(255,255,255,0.96)",
               lineHeight: 1,
               textShadow:
-                "0 0 32px rgba(255,176,136,0.4), 0 4px 22px rgba(0,0,0,0.55)",
+                "0 0 36px rgba(255,176,136,0.4), 0 4px 26px rgba(0,0,0,0.55)",
               letterSpacing: "0.04em",
             }}
           >
@@ -735,7 +735,7 @@ const HackathonFinale: React.FC<{ stageEnter: number }> = ({ stageEnter }) => {
               display: "flex",
               gap: "0.5em",
               fontFamily: theme.fonts.sans,
-              fontSize: 11,
+              fontSize: 16,
               fontWeight: 600,
               letterSpacing: "0.5em",
               textTransform: "uppercase",
@@ -763,7 +763,7 @@ const HackathonFinale: React.FC<{ stageEnter: number }> = ({ stageEnter }) => {
         <div
           style={{
             position: "absolute",
-            top: 460,
+            top: 420,
             left: 0,
             right: 0,
             display: "flex",
@@ -779,12 +779,12 @@ const HackathonFinale: React.FC<{ stageEnter: number }> = ({ stageEnter }) => {
         >
           <div
             style={{
-              padding: "6px 16px",
+              padding: "8px 22px",
               borderRadius: 999,
-              border: "1px solid rgba(255,255,255,0.12)",
+              border: "1px solid rgba(255,255,255,0.14)",
               background: "rgba(255,255,255,0.03)",
               fontFamily: theme.fonts.sans,
-              fontSize: 12,
+              fontSize: 17,
               fontWeight: 500,
               color: "rgba(255,255,255,0.8)",
               letterSpacing: "0.06em",
@@ -810,12 +810,12 @@ const HackathonFinale: React.FC<{ stageEnter: number }> = ({ stageEnter }) => {
             style={{
               fontFamily: theme.fonts.serif,
               fontWeight: 400,
-              fontSize: 56,
+              fontSize: 78,
               color: "rgba(245,241,234,0.94)",
               letterSpacing: `${mainTitleTracking}em`,
-              textShadow: "0 4px 16px rgba(0,0,0,0.4)",
+              textShadow: "0 4px 18px rgba(0,0,0,0.4)",
               whiteSpace: "nowrap",
-              maxWidth: 720,
+              maxWidth: 1200,
             }}
           >
             Space Base Challenge 2026
@@ -825,7 +825,7 @@ const HackathonFinale: React.FC<{ stageEnter: number }> = ({ stageEnter }) => {
         <div
           style={{
             position: "absolute",
-            top: 590,
+            top: 620,
             left: 0,
             right: 0,
             display: "flex",
@@ -843,7 +843,7 @@ const HackathonFinale: React.FC<{ stageEnter: number }> = ({ stageEnter }) => {
             style={{
               fontFamily: theme.fonts.songti,
               fontStyle: "italic",
-              fontSize: 14,
+              fontSize: 20,
               fontWeight: 500,
               color: "rgba(168,180,224,0.7)",
               letterSpacing: "0.3em",
@@ -871,11 +871,11 @@ const HackathonFinale: React.FC<{ stageEnter: number }> = ({ stageEnter }) => {
             style={{
               fontFamily: theme.fonts.serif,
               fontWeight: 400,
-              fontSize: 44,
+              fontSize: 62,
               fontStyle: "italic",
               color: "rgba(245,241,234,0.96)",
               letterSpacing: `${ctaTracking}em`,
-              textShadow: "0 0 24px rgba(255,176,136,0.25)",
+              textShadow: "0 0 28px rgba(255,176,136,0.28)",
             }}
           >
             Join the Constellation.
@@ -883,7 +883,7 @@ const HackathonFinale: React.FC<{ stageEnter: number }> = ({ stageEnter }) => {
           <div
             style={{
               fontFamily: theme.fonts.songti,
-              fontSize: 16,
+              fontSize: 22,
               fontWeight: 500,
               letterSpacing: "0.4em",
               color: "rgba(168,180,224,0.65)",

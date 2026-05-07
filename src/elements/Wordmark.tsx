@@ -7,7 +7,7 @@ export const Wordmark: React.FC<{
   taglineOpacity?: number;
   size?: "lg" | "xl";
 }> = ({ opacity = 1, showTagline = false, taglineOpacity = 0, size = "lg" }) => {
-  const titleSize = size === "xl" ? 88 : 68;
+  const titleSize = size === "xl" ? 123 : 95;
   return (
     <div
       style={{

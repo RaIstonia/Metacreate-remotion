@@ -1,5 +1,12 @@
 import React from "react";
-import { AbsoluteFill, Series } from "remotion";
+import {
+  AbsoluteFill,
+  Audio,
+  Sequence,
+  Series,
+  staticFile,
+  useVideoConfig,
+} from "remotion";
 import { BrandIntro } from "./BrandIntro";
 import { FindYourselfScene } from "./FindYourselfScene";
 import { ConnectScene } from "./ConnectScene";
@@ -22,6 +29,68 @@ export const MASTER_DURATION =
   ACT3_DURATION +
   OUTRO_DURATION;
 
+const SoundTrack: React.FC = () => {
+  const { fps } = useVideoConfig();
+  const F = (sec: number) => Math.round(sec * fps);
+
+  return (
+    <>
+      <Audio
+        src={staticFile("audio/bgm.mp3")}
+        startFrom={F(0)}
+        endAt={F(60)}
+        volume={(frame) => {
+          const base = 0.5;
+
+          if (frame < F(0.6)) {
+            return (frame / F(0.6)) * base;
+          }
+
+          if (frame >= F(52)) {
+            const t = (frame - F(52)) / (F(60) - F(52));
+            return Math.max(0, base * (1 - t));
+          }
+
+          if (frame >= F(45.5) && frame < F(46.5)) {
+            const t = (frame - F(45.5)) / (F(46.5) - F(45.5));
+            return base * (1 - t * 0.3);
+          }
+          if (frame >= F(46.5) && frame < F(48.5)) {
+            const t = (frame - F(46.5)) / (F(48.5) - F(46.5));
+            return base * (0.7 + t * 0.3);
+          }
+
+          return base;
+        }}
+      />
+
+      <Sequence from={F(0.5)} durationInFrames={F(2)}>
+        <Audio src={staticFile("audio/flame-whoosh.mp3")} volume={0.7} />
+      </Sequence>
+
+      <Sequence from={F(22.5)} durationInFrames={F(1.5)}>
+        <Audio src={staticFile("audio/cinematic-whoosh.mp3")} volume={0.4} />
+      </Sequence>
+
+      <Sequence from={F(36.3)} durationInFrames={F(1.5)}>
+        <Audio src={staticFile("audio/cinematic-whoosh.mp3")} volume={0.4} />
+      </Sequence>
+
+      <Sequence from={F(44.5)} durationInFrames={F(2.5)}>
+        <Audio src={staticFile("audio/riser.mp3")} volume={0.65} />
+      </Sequence>
+
+      <Sequence from={F(46.5)} durationInFrames={F(2.5)}>
+        <Audio src={staticFile("audio/impact-boom.mp3")} volume={0.2} />
+      </Sequence>
+
+      <Sequence from={F(54.4)} durationInFrames={F(2.5)}>
+        <Audio src={staticFile("audio/flame-whoosh.mp3")} volume={0.45} />
+      </Sequence>
+    </>
+  );
+};
+
 export const MasterFilm: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: theme.colors.voidBlack }}>
     <Series>
@@ -41,5 +110,7 @@ export const MasterFilm: React.FC = () => (
         <BrandOutro />
       </Series.Sequence>
     </Series>
+
+    <SoundTrack />
   </AbsoluteFill>
 );

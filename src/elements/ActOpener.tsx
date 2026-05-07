@@ -50,7 +50,7 @@ export const ActOpener: React.FC<{
             opacity: heroEnter,
             transform: `translateY(${heroLift}px)`,
             fontFamily: theme.fonts.serif,
-            fontSize: 96,
+            fontSize: 134,
             fontWeight: 300,
             letterSpacing: "-0.01em",
             color: theme.colors.starlight,
@@ -68,7 +68,7 @@ export const ActOpener: React.FC<{
           style={{
             marginTop: 36,
             fontFamily: theme.fonts.sans,
-            fontSize: 26,
+            fontSize: 36,
             letterSpacing: "0.36em",
             color: theme.colors.starlight,
             opacity: heroEnter * 0.6,
@@ -115,7 +115,7 @@ export const ActOpener: React.FC<{
         <div
           style={{
             fontFamily: theme.fonts.serif,
-            fontSize: 22,
+            fontSize: 31,
             fontWeight: 300,
             color: theme.colors.starlight,
           }}
@@ -128,7 +128,7 @@ export const ActOpener: React.FC<{
         <div
           style={{
             fontFamily: theme.fonts.sans,
-            fontSize: 12,
+            fontSize: 17,
             letterSpacing: "0.32em",
             color: `${theme.colors.starlight}80`,
             fontWeight: 300,

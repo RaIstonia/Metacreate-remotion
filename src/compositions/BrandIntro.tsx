@@ -378,10 +378,10 @@ export const BrandIntro: React.FC = () => {
         <Wordmark opacity={wordmarkOpacity} />
         <div
           style={{
-            marginTop: 28,
+            marginTop: 32,
             fontFamily: theme.fonts.songti,
             fontWeight: 500,
-            fontSize: 30,
+            fontSize: 42,
             color: `${theme.colors.starlight}e0`,
             letterSpacing: "0.06em",
             opacity: tagline1Opacity,
@@ -393,10 +393,10 @@ export const BrandIntro: React.FC = () => {
         </div>
         <div
           style={{
-            marginTop: 14,
+            marginTop: 18,
             fontFamily: theme.fonts.songti,
             fontWeight: 600,
-            fontSize: 20,
+            fontSize: 28,
             color: theme.colors.ember,
             letterSpacing: "0.42em",
             opacity: tagline2Opacity,

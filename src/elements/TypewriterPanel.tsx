@@ -104,7 +104,7 @@ export const TypewriterPanel: React.FC<Props> = ({
         right: 0,
         top: 0,
         bottom: 0,
-        width: 760,
+        width: 920,
         paddingRight: 80,
         paddingLeft: 16,
         display: "flex",
@@ -120,7 +120,7 @@ export const TypewriterPanel: React.FC<Props> = ({
         style={{
           fontFamily: theme.fonts.songti,
           fontWeight: 700,
-          fontSize: 104,
+          fontSize: 146,
           letterSpacing: "0.04em",
           color: "rgba(255,255,255,0.96)",
           lineHeight: 1.05,
@@ -163,8 +163,8 @@ export const TypewriterPanel: React.FC<Props> = ({
         <span
           style={{
             display: "inline-block",
-            width: 6,
-            height: 90,
+            width: 8,
+            height: 126,
             backgroundColor: theme.colors.ember,
             opacity: showTitleCursor ? cursorBlink : 0,
             marginLeft: 8,
@@ -177,10 +177,10 @@ export const TypewriterPanel: React.FC<Props> = ({
       {titleEn && (
         <div
           style={{
-            marginTop: 12,
+            marginTop: 14,
             fontFamily: theme.fonts.sans,
             fontWeight: 600,
-            fontSize: 16,
+            fontSize: 22,
             letterSpacing: "0.5em",
             textTransform: "uppercase",
             color: "rgba(255,255,255,0.55)",
@@ -193,10 +193,10 @@ export const TypewriterPanel: React.FC<Props> = ({
 
       <div
         style={{
-          marginTop: 36,
+          marginTop: 40,
           fontFamily: theme.fonts.songti,
           fontWeight: 500,
-          fontSize: 36,
+          fontSize: 50,
           letterSpacing: "0.08em",
           color: "rgba(255,255,255,0.78)",
           lineHeight: 1.4,
@@ -237,8 +237,8 @@ export const TypewriterPanel: React.FC<Props> = ({
         <span
           style={{
             display: "inline-block",
-            width: 3,
-            height: 36,
+            width: 4,
+            height: 50,
             backgroundColor: "rgba(255,255,255,0.5)",
             opacity: showSubtitleCursor ? cursorBlink : 0,
             marginLeft: 6,
@@ -250,10 +250,10 @@ export const TypewriterPanel: React.FC<Props> = ({
       {subtitleEn && (
         <div
           style={{
-            marginTop: 10,
+            marginTop: 12,
             fontFamily: theme.fonts.sans,
             fontWeight: 500,
-            fontSize: 13,
+            fontSize: 18,
             letterSpacing: "0.45em",
             textTransform: "uppercase",
             color: "rgba(255,255,255,0.42)",
