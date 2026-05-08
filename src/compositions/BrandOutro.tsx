@@ -16,7 +16,7 @@ const PLANETS: Planet[] = Array.from({ length: 55 }).map((_, i) => ({
   x: 220 + rand(i * 2) * 1480,
   y: 140 + rand(i * 2 + 1) * 800,
   size: rand(i * 3) * 2.6 + 1.4,
-  delay: 40 + Math.floor(rand(i * 5) * 50),
+  delay: 44 + Math.floor(rand(i * 5) * 56),
 }));
 
 const CONNECTIONS: Array<[number, number]> = [];
@@ -44,7 +44,7 @@ export const BrandOutro: React.FC = () => {
 
   const flameScale = interpolate(
     frame,
-    [0, 30, 50, 72],
+    [0, 33, 56, 80],
     [0.0, 1.0, 1.0, 0.0],
     {
       extrapolateLeft: "clamp",
@@ -52,73 +52,73 @@ export const BrandOutro: React.FC = () => {
       easing: Easing.inOut(Easing.cubic),
     }
   );
-  const flameOpacity = interpolate(frame, [0, 18, 52, 72], [0, 1, 1, 0], {
+  const flameOpacity = interpolate(frame, [0, 20, 58, 80], [0, 1, 1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const flameGlow = interpolate(frame, [0, 30, 50, 72], [0.4, 1.0, 1.0, 0], {
+  const flameGlow = interpolate(frame, [0, 33, 56, 80], [0.4, 1.0, 1.0, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
   const burstFlash = interpolate(
     frame,
-    [40, 50, 56, 70],
+    [44, 56, 62, 78],
     [0, 0.55, 0.55, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   );
 
-  const cameraScale = interpolate(frame, [10, 100], [1.25, 1], {
+  const cameraScale = interpolate(frame, [11, 111], [1.25, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.out(Easing.cubic),
   });
 
-  const cosmicReveal = interpolate(frame, [40, 80], [0, 1], {
+  const cosmicReveal = interpolate(frame, [44, 89], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.out(Easing.cubic),
   });
 
-  const wordmarkOpacity = interpolate(frame, [88, 118], [0, 1], {
+  const wordmarkOpacity = interpolate(frame, [98, 131], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const brandNameOpacity = interpolate(frame, [114, 142], [0, 1], {
+  const brandNameOpacity = interpolate(frame, [127, 158], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const brandNameLift = interpolate(frame, [114, 146], [12, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: Easing.out(Easing.cubic),
-  });
-  const line1Opacity = interpolate(frame, [136, 162], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-  const line1Lift = interpolate(frame, [136, 166], [10, 0], {
+  const brandNameLift = interpolate(frame, [127, 162], [12, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.out(Easing.cubic),
   });
-  const line2Opacity = interpolate(frame, [156, 182], [0, 1], {
+  const line1Opacity = interpolate(frame, [151, 180], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const line2Lift = interpolate(frame, [156, 186], [10, 0], {
+  const line1Lift = interpolate(frame, [151, 184], [10, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+  const line2Opacity = interpolate(frame, [173, 202], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const line2Lift = interpolate(frame, [173, 207], [10, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.out(Easing.cubic),
   });
 
-  const sceneFade = interpolate(frame, [200, 236], [1, 0], {
+  const sceneFade = interpolate(frame, [222, 262], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  const scrollerStart = 60;
-  const scrollerEnd = 222;
+  const scrollerStart = 67;
+  const scrollerEnd = 247;
   const scrollerX = interpolate(
     frame,
     [scrollerStart, scrollerEnd],
@@ -218,8 +218,8 @@ export const BrandOutro: React.FC = () => {
 
       <AbsoluteFill style={{ pointerEvents: "none" }}>
         {[...Array(SPARK_COUNT)].map((_, i) => {
-          const spawnDelay = 36 + (i % 12) * 1.6;
-          const lifetime = 50;
+          const spawnDelay = 40 + (i % 12) * 1.8;
+          const lifetime = 56;
           const localT = frame - spawnDelay;
           if (localT < 0 || localT > lifetime) return null;
           const t = localT / lifetime;

@@ -18,21 +18,21 @@ type StageWindow = {
 };
 
 const STAGE1: StageWindow = {
-  enterStart: 36,
-  enterEnd: 60,
-  exitStart: 130,
-  exitEnd: 146,
+  enterStart: 40,
+  enterEnd: 67,
+  exitStart: 144,
+  exitEnd: 162,
 };
 const STAGE2: StageWindow = {
-  enterStart: 130,
-  enterEnd: 154,
-  exitStart: 210,
-  exitEnd: 226,
+  enterStart: 144,
+  enterEnd: 171,
+  exitStart: 233,
+  exitEnd: 251,
 };
-const STAGE3: StageWindow = { enterStart: 210, enterEnd: 234 };
+const STAGE3: StageWindow = { enterStart: 233, enterEnd: 260 };
 
-const SCENE_FADE_START = 438;
-const SCENE_FADE_END = 454;
+const SCENE_FADE_START = 482;
+const SCENE_FADE_END = 498;
 
 const animSlideX = (frame: number, w: StageWindow) => {
   const ease = Easing.inOut(Easing.cubic);
@@ -408,22 +408,16 @@ const HackathonFinale: React.FC<{ stageEnter: number }> = ({ stageEnter }) => {
   const cy = 1080 / 2;
 
   const PLANET_EMERGE = 0;
-  const BADGE_APPEAR = 12;
-  const BEAM_CONVERGE_START = 36;
-  const BEAM_CONVERGE_END = 48;
-  const BURST_START = 46;
-  const BURST_PEAK = 54;
-  const BURST_END = 64;
-  const HACK_TITLE = 48;
-  const HACK_CAPS = 72;
-  const DATE_CHIP = 60;
-  const MAIN_TITLE = 72;
-  const SUB_TITLE = 92;
-  const BREATH_END = 132;
-  const EXIT_START = 132;
-  const SILENCE_START = 144;
-  const CTA_SHOW = 152;
-  const END = 204;
+  const BADGE_APPEAR = 14;
+  const BEAM_CONVERGE_START = 40;
+  const BEAM_CONVERGE_END = 54;
+  const BURST_START = 51;
+  const BURST_PEAK = 60;
+  const BURST_END = 71;
+  const EXIT_START = 89;
+  const SILENCE_START = 103;
+  const CTA_SHOW = 112;
+  const END = 222;
 
   const hackathonExitO = interpolate(
     local,
@@ -462,23 +456,6 @@ const HackathonFinale: React.FC<{ stageEnter: number }> = ({ stageEnter }) => {
     extrapolateRight: "clamp",
     easing: Easing.out(Easing.cubic),
   });
-
-  const mainTitleO = interpolate(
-    local,
-    [MAIN_TITLE, MAIN_TITLE + 20],
-    [0, 1],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
-  const mainTitleTracking = interpolate(
-    local,
-    [MAIN_TITLE, MAIN_TITLE + 24],
-    [0.4, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-      easing: Easing.out(Easing.cubic),
-    }
-  );
 
   return (
     <>
@@ -664,195 +641,6 @@ const HackathonFinale: React.FC<{ stageEnter: number }> = ({ stageEnter }) => {
           }}
         />
 
-        <div
-          style={{
-            position: "absolute",
-            top: 180,
-            left: 0,
-            right: 0,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 14,
-            pointerEvents: "none",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              gap: 14,
-              fontFamily: theme.fonts.songti,
-              fontWeight: 700,
-              fontSize: 134,
-              color: "rgba(255,255,255,0.96)",
-              lineHeight: 1,
-              textShadow:
-                "0 0 36px rgba(255,176,136,0.4), 0 4px 26px rgba(0,0,0,0.55)",
-              letterSpacing: "0.04em",
-            }}
-          >
-            {[..."黑客松"].map((ch, i) => {
-              const charStart = HACK_TITLE + i * 8;
-              const o = interpolate(
-                local,
-                [charStart, charStart + 18],
-                [0, 1],
-                { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-              );
-              const blur = interpolate(
-                local,
-                [charStart, charStart + 14],
-                [12, 0],
-                { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-              );
-              const scale = interpolate(
-                local,
-                [charStart, charStart + 20],
-                [0.6, 1],
-                {
-                  extrapolateLeft: "clamp",
-                  extrapolateRight: "clamp",
-                  easing: Easing.out(Easing.cubic),
-                }
-              );
-              return (
-                <span
-                  key={i}
-                  style={{
-                    display: "inline-block",
-                    opacity: o,
-                    filter: `blur(${blur}px)`,
-                    transform: `scale(${scale})`,
-                  }}
-                >
-                  {ch}
-                </span>
-              );
-            })}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              gap: "0.5em",
-              fontFamily: theme.fonts.sans,
-              fontSize: 16,
-              fontWeight: 600,
-              letterSpacing: "0.5em",
-              textTransform: "uppercase",
-              color: "rgba(168,180,224,0.65)",
-              paddingLeft: "0.5em",
-            }}
-          >
-            {[..."HACKATHON"].map((c, i) => {
-              const charStart = HACK_CAPS + i * 2;
-              const o = interpolate(
-                local,
-                [charStart, charStart + 10],
-                [0, 1],
-                { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-              );
-              return (
-                <span key={i} style={{ opacity: o }}>
-                  {c}
-                </span>
-              );
-            })}
-          </div>
-        </div>
-
-        <div
-          style={{
-            position: "absolute",
-            top: 420,
-            left: 0,
-            right: 0,
-            display: "flex",
-            justifyContent: "center",
-            opacity: interpolate(
-              local,
-              [DATE_CHIP, DATE_CHIP + 18],
-              [0, 1],
-              { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-            ),
-            pointerEvents: "none",
-          }}
-        >
-          <div
-            style={{
-              padding: "8px 22px",
-              borderRadius: 999,
-              border: "1px solid rgba(255,255,255,0.14)",
-              background: "rgba(255,255,255,0.03)",
-              fontFamily: theme.fonts.sans,
-              fontSize: 17,
-              fontWeight: 500,
-              color: "rgba(255,255,255,0.8)",
-              letterSpacing: "0.06em",
-            }}
-          >
-            🗓 May 9–11, 2026 · Columbia + Remote
-          </div>
-        </div>
-
-        <div
-          style={{
-            position: "absolute",
-            top: 510,
-            left: 0,
-            right: 0,
-            display: "flex",
-            justifyContent: "center",
-            opacity: mainTitleO,
-            pointerEvents: "none",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: theme.fonts.serif,
-              fontWeight: 400,
-              fontSize: 78,
-              color: "rgba(245,241,234,0.94)",
-              letterSpacing: `${mainTitleTracking}em`,
-              textShadow: "0 4px 18px rgba(0,0,0,0.4)",
-              whiteSpace: "nowrap",
-              maxWidth: 1200,
-            }}
-          >
-            Space Base Challenge 2026
-          </div>
-        </div>
-
-        <div
-          style={{
-            position: "absolute",
-            top: 620,
-            left: 0,
-            right: 0,
-            display: "flex",
-            justifyContent: "center",
-            opacity: interpolate(
-              local,
-              [SUB_TITLE, SUB_TITLE + 18],
-              [0, 1],
-              { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-            ),
-            pointerEvents: "none",
-          }}
-        >
-          <span
-            style={{
-              fontFamily: theme.fonts.songti,
-              fontStyle: "italic",
-              fontSize: 20,
-              fontWeight: 500,
-              color: "rgba(168,180,224,0.7)",
-              letterSpacing: "0.3em",
-              paddingLeft: "0.3em",
-            }}
-          >
-            为下一个前沿而造
-          </span>
-        </div>
       </AbsoluteFill>
 
       {local >= CTA_SHOW && (

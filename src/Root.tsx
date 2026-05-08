@@ -54,7 +54,7 @@ export const Root: React.FC = () => (
     <Composition
       id="CoCreateScene"
       component={CoCreateScene}
-      durationInFrames={454}
+      durationInFrames={498}
       fps={30}
       width={1920}
       height={1080}
@@ -62,7 +62,7 @@ export const Root: React.FC = () => (
     <Composition
       id="BrandOutro"
       component={BrandOutro}
-      durationInFrames={236}
+      durationInFrames={262}
       fps={30}
       width={1920}
       height={1080}
